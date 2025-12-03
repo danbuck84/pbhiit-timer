@@ -471,9 +471,9 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 
 ## 👤 Autor
 
-**Dan Buck**  
-📧 [Contato via GitHub](https://github.com/danbuck84)  
-🔗 [LinkedIn](#) • [Portfolio](#)
+**Daniel Buck**, São José dos Campos - SP, Brasil  
+📧 [GitHub](https://github.com/danbuck84)  
+🔗 [LinkedIn](https://www.linkedin.com/in/danielbuck/) • [Instagram](https://www.instagram.com/teacherdanbuck/)
 
 ---
 
