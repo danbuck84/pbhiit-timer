@@ -97,12 +97,38 @@ export function useTimer(program: Program | null, audioMode: AudioMode, onComple
         }
     }, [program]);
 
+    const next = useCallback(() => {
+        if (!program) return;
+        const nextIdx = currentIntervalIndex + 1;
+        if (nextIdx < program.intervals.length) {
+            setCurrentIntervalIndex(nextIdx);
+            setTimeLeft(program.intervals[nextIdx].duration);
+        } else {
+            setIsRunning(false);
+            onComplete();
+        }
+    }, [program, currentIntervalIndex, onComplete]);
+
+    const previous = useCallback(() => {
+        if (!program) return;
+        const prevIdx = currentIntervalIndex - 1;
+        if (prevIdx >= 0) {
+            setCurrentIntervalIndex(prevIdx);
+            setTimeLeft(program.intervals[prevIdx].duration);
+        } else {
+            // If at start, just reset current
+            setTimeLeft(program.intervals[0].duration);
+        }
+    }, [program, currentIntervalIndex]);
+
     return {
         isRunning,
         currentIntervalIndex,
         timeLeft,
         togglePlay,
         reset,
+        next,
+        previous,
         setIsRunning // Exported for manual control if needed
     };
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RotateCcw, Play, Pause, Volume2, VolumeX, Mic, Gauge, ArrowUp, ArrowDown } from 'lucide-react';
+import { RotateCcw, Play, Pause, Volume2, VolumeX, Mic, Gauge, ArrowUp, ArrowDown, SkipBack, SkipForward } from 'lucide-react';
 import type { Program, PhaseType, AudioMode } from '../types';
 import { useTimer } from '../hooks/useTimer';
 import { useData } from '../context/DataContext';
@@ -19,7 +19,7 @@ export default function ActiveWorkout({ program, onComplete, onExit }: ActiveWor
         onComplete();
     };
 
-    const { isRunning, currentIntervalIndex, timeLeft, togglePlay } = useTimer(program, audioMode, handleFinish);
+    const { isRunning, currentIntervalIndex, timeLeft, togglePlay, next, previous } = useTimer(program, audioMode, handleFinish);
 
     const currentInterval = program.intervals[currentIntervalIndex];
 
@@ -120,15 +120,29 @@ export default function ActiveWorkout({ program, onComplete, onExit }: ActiveWor
             </div>
 
             {/* Controls */}
-            <div className="p-10 pb-16 flex justify-center z-10">
+            <div className="p-10 pb-16 flex items-center justify-center gap-8 z-10">
+                <button
+                    onClick={previous}
+                    className="p-4 rounded-full bg-white/10 text-slate-900 dark:text-white hover:bg-white/20 active:scale-95 transition-all"
+                >
+                    <SkipBack size={32} fill="currentColor" />
+                </button>
+
                 <button
                     onClick={togglePlay}
-                    className={`w-28 h-28 rounded-full flex items-center justify-center shadow-2xl transition-all active:scale-95 ${isRunning
+                    className={`w-24 h-24 rounded-full flex items-center justify-center shadow-2xl transition-all active:scale-95 ${isRunning
                         ? 'bg-white text-slate-900 border-2 border-slate-200 dark:bg-slate-800 dark:text-white dark:border-slate-700'
                         : 'bg-orange-600 text-white hover:bg-orange-500'
                         }`}
                 >
-                    {isRunning ? <Pause size={48} fill="currentColor" /> : <Play size={48} fill="currentColor" className="ml-2" />}
+                    {isRunning ? <Pause size={40} fill="currentColor" /> : <Play size={40} fill="currentColor" className="ml-2" />}
+                </button>
+
+                <button
+                    onClick={next}
+                    className="p-4 rounded-full bg-white/10 text-slate-900 dark:text-white hover:bg-white/20 active:scale-95 transition-all"
+                >
+                    <SkipForward size={32} fill="currentColor" />
                 </button>
             </div>
 
