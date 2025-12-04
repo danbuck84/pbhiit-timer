@@ -34,8 +34,8 @@ export default function History() {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + delta, 1));
     };
 
-    const monthName = currentDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
-        .replace(' De ', ' de ');
+    const monthName = currentDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+    const formattedMonthName = monthName.charAt(0).toUpperCase() + monthName.slice(1);
 
     const filteredHistory = history.filter(log => {
         if (!log.completedAt) return false;
@@ -50,7 +50,7 @@ export default function History() {
             <div className="mb-8 bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700">
                 <div className="flex justify-between items-center mb-4">
                     <button onClick={() => changeMonth(-1)} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded dark:text-white"><ChevronLeft /></button>
-                    <h3 className="font-bold capitalize dark:text-white">{monthName}</h3>
+                    <h3 className="font-bold dark:text-white">{formattedMonthName}</h3>
                     <button onClick={() => changeMonth(1)} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded dark:text-white"><ChevronRight /></button>
                 </div>
                 <div className="grid grid-cols-7 gap-1 text-center text-sm mb-2">
@@ -75,7 +75,7 @@ export default function History() {
             </div>
 
             <div className="space-y-4">
-                <h3 className="font-bold text-lg dark:text-white">Lista de Treinos ({monthName})</h3>
+                <h3 className="font-bold text-lg dark:text-white">Lista de Treinos</h3>
                 {filteredHistory.length === 0 ? (
                     <div className="text-center opacity-50 mt-10 dark:text-white">
                         <CalendarIcon size={48} className="mx-auto mb-4" />
