@@ -37,6 +37,13 @@ export default function History() {
     const monthName = currentDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
         .replace(' De ', ' de ');
 
+    const filteredHistory = history.filter(log => {
+        if (!log.completedAt) return false;
+        const logDate = log.completedAt instanceof Timestamp ? log.completedAt.toDate() : new Date((log.completedAt as { seconds: number }).seconds * 1000);
+        return logDate.getMonth() === currentDate.getMonth() &&
+            logDate.getFullYear() === currentDate.getFullYear();
+    });
+
     return (
         <div className="p-6 min-h-screen max-w-lg mx-auto">
             {/* Calendar */}
@@ -68,14 +75,14 @@ export default function History() {
             </div>
 
             <div className="space-y-4">
-                <h3 className="font-bold text-lg dark:text-white">Lista de Treinos</h3>
-                {history.length === 0 ? (
+                <h3 className="font-bold text-lg dark:text-white">Lista de Treinos ({monthName})</h3>
+                {filteredHistory.length === 0 ? (
                     <div className="text-center opacity-50 mt-10 dark:text-white">
                         <CalendarIcon size={48} className="mx-auto mb-4" />
-                        <p>Nenhum treino completado ainda.</p>
+                        <p>Nenhum treino completado neste mês.</p>
                     </div>
                 ) : (
-                    history.map(log => (
+                    filteredHistory.map(log => (
                         <div key={log.id} className="p-4 rounded-xl border flex justify-between items-center bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm">
                             <div>
                                 <h4 className="font-bold dark:text-white">{log.programName}</h4>
