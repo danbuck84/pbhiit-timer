@@ -229,10 +229,10 @@ export default function GlobalWorkouts({ onNavigate }: GlobalWorkoutsProps) {
 
             {/* Preview Modal */}
             {selectedProgram && programStructure && (
-                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] animate-in slide-in-from-bottom-10 duration-300">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
                         {/* Modal Header */}
-                        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0">
                             <div>
                                 <h3 className="font-bold text-lg dark:text-white">{selectedProgram.name}</h3>
                                 <p className="text-xs text-slate-500 dark:text-slate-400">Criado por {selectedProgram.creatorId === user?.uid ? 'Você' : selectedProgram.creatorName}</p>
@@ -324,7 +324,7 @@ export default function GlobalWorkouts({ onNavigate }: GlobalWorkoutsProps) {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+                        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0">
                             <Button
                                 onClick={() => handleDownload(selectedProgram)}
                                 className="w-full"
