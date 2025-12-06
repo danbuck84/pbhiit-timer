@@ -327,7 +327,7 @@ export default function Home({ onStart, onNavigate, onEdit }: HomeProps) {
             {/* Preview Modal */}
             {selectedProgram && programStructure && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-300">
+                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[70vh] animate-in zoom-in-95 duration-300">
                         {/* Modal Header */}
                         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0">
                             <div>
