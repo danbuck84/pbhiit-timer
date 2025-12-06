@@ -4,7 +4,7 @@ import type { Program, Intensity, Position } from '../types';
 import { useData } from '../context/DataContext';
 import { useAuth } from '../context/AuthContext';
 import { Zap, Play, Trash2, Plus, Flame, Trophy, Globe, Share, Pencil, CloudOff, X, Activity } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 const PRESETS: Program[] = [
     {
@@ -70,6 +70,18 @@ export default function Home({ onStart, onNavigate, onEdit }: HomeProps) {
     const { user } = useAuth();
     const { customPrograms, streak, deleteProgram, publishProgram, unpublishProgram, globalPrograms } = useData();
     const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        if (selectedProgram) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [selectedProgram]);
 
     // Parse program structure for preview
     const programStructure = useMemo((): WorkoutStructure | null => {
@@ -314,8 +326,8 @@ export default function Home({ onStart, onNavigate, onEdit }: HomeProps) {
 
             {/* Preview Modal */}
             {selectedProgram && programStructure && (
-                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] animate-in slide-in-from-bottom-10 duration-300">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-300">
                         {/* Modal Header */}
                         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
                             <div>
@@ -409,7 +421,7 @@ export default function Home({ onStart, onNavigate, onEdit }: HomeProps) {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+                        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0">
                             <button
                                 onClick={() => {
                                     setSelectedProgram(null);
