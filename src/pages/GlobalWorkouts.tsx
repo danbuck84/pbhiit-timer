@@ -230,7 +230,7 @@ export default function GlobalWorkouts({ onNavigate }: GlobalWorkoutsProps) {
             {/* Preview Modal */}
             {selectedProgram && programStructure && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[80vh] overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
                         {/* Modal Header */}
                         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0">
                             <div>
@@ -243,7 +243,7 @@ export default function GlobalWorkouts({ onNavigate }: GlobalWorkoutsProps) {
                         </div>
 
                         {/* Modal Content */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                        <div className="flex-1 overflow-y-auto p-4 pb-10 space-y-4">
                             {/* Stats */}
                             <div className="grid grid-cols-3 gap-2">
                                 <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl text-center">
