@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useData } from '../context/DataContext';
 import { useAuth } from '../context/AuthContext';
 import type { Program, Intensity, Position } from '../types';
@@ -39,6 +39,18 @@ export default function GlobalWorkouts({ onNavigate }: GlobalWorkoutsProps) {
             onNavigate('home');
         }
     };
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        if (selectedProgram) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [selectedProgram]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
