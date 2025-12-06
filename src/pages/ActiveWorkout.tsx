@@ -40,6 +40,26 @@ export default function ActiveWorkout({ program, onComplete, onExit }: ActiveWor
         }
     };
 
+    const calculateElapsedTime = () => {
+        let elapsed = 0;
+        for (let i = 0; i < currentIntervalIndex; i++) {
+            elapsed += program.intervals[i].duration;
+        }
+        if (program.intervals[currentIntervalIndex]) {
+            elapsed += (program.intervals[currentIntervalIndex].duration - timeLeft);
+        }
+        return Math.max(0, elapsed);
+    };
+
+    const handleExitClick = async () => {
+        const elapsed = calculateElapsedTime();
+        // Save if at least 1 second passed and not finished
+        if (elapsed > 1 && elapsed < program.totalTime) {
+            await saveHistory(program, elapsed);
+        }
+        onExit();
+    };
+
     const formatTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
     const toggleAudio = () => {
@@ -50,7 +70,7 @@ export default function ActiveWorkout({ program, onComplete, onExit }: ActiveWor
         <div className="fixed inset-0 flex flex-col transition-colors duration-500 bg-white dark:bg-slate-950">
             {/* Header */}
             <div className="p-6 flex justify-between items-center z-10">
-                <button onClick={onExit} className="p-2 rounded-full backdrop-blur-md bg-black/5 dark:bg-white/10 text-black dark:text-white">
+                <button onClick={handleExitClick} className="p-2 rounded-full backdrop-blur-md bg-black/5 dark:bg-white/10 text-black dark:text-white">
                     <RotateCcw size={24} />
                 </button>
                 <div className="font-bold uppercase tracking-widest text-black/50 dark:text-white/50">

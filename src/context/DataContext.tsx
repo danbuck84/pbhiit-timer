@@ -9,7 +9,7 @@ interface DataContextType {
     history: WorkoutLog[];
     globalHistory: WorkoutLog[];
     streak: number;
-    saveHistory: (program: Program) => Promise<void>;
+    saveHistory: (program: Program, actualDuration?: number) => Promise<void>;
     deleteProgram: (id: string) => Promise<void>;
     saveProgram: (program: Omit<Program, 'id'>) => Promise<void>;
     globalPrograms: Program[];
@@ -100,15 +100,21 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
 
 
-    const saveHistory = async (program: Program) => {
+    const saveHistory = async (program: Program, actualDuration?: number) => {
         if (!user) return;
+
+        const duration = actualDuration !== undefined ? actualDuration : program.totalTime;
+        const status = actualDuration !== undefined && actualDuration < program.totalTime ? 'incomplete' : 'completed';
+
         await addDoc(collection(db, 'users', user.uid, 'history'), {
             programName: program.name,
-            duration: program.totalTime,
+            duration: duration,
+            targetDuration: program.totalTime,
             completedAt: Timestamp.now(),
             userId: user.uid,
             userName: user.displayName || user.email || 'Anônimo',
-            userPhoto: user.photoURL || undefined
+            userPhoto: user.photoURL || undefined,
+            status
         });
     };
 
